@@ -6,3 +6,4 @@ int stringcompare(char*,char*);	//FILE : system_compare.cpp
 // DEKLRASI MODUL - END
 
 #endif
+
