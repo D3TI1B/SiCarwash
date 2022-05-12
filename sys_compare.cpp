@@ -24,4 +24,3 @@ int stringcompare(char *a,char *b)
     }
 } 
 // MODUL YANG BERFUNGSI UNTUK MEBANDINGKAN ANTARA 2 VARIABEL - END
-

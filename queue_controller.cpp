@@ -9,11 +9,64 @@
 
 
 // PEMANGGILAN FILE HEADER
-#include "antrian.h"
+#include "layout.h"
+#include "queue_controller.h"
 #include "sys_compare.h"
 // PEMANGGILAN FILE HEADER - END
 
+// DEKLARASI VARIABEL GLOBAL
+typedef struct antrian_cuci *address;
+struct antrian_cuci{
+	char nopol[15];
+	int golongan;
+	int durasi;
+	int waktu_in;
+	int waktu_proses;
+	int waktu_out;
+	address next;
+};
 
+antrian_cuci *tempat_cuci_1 = NULL; // LIST MENUNJUK NULL
+antrian_cuci *tempat_cuci_2 = NULL; // LIST MENUNJUK NULL
+
+int jumlah_durasi[2];
+int pilihan_durasi[3] = {30,45,75};
+int durasi_simulasi = 5; // SIMULASI SKIP WAKTU DI SET 5 MENIT
+int durasi_jeda = 5; // SIMULASI JEDA WAKTU DI SET 5 MENIT SETIAP SELESAI MENCUCI
+int waktu_buka = 0; // DALAM MENIT
+int waktu_tutup = 600; // DALAM MENIT
+int waktu_mulai_istirahat = 300; // DALAM MENIT
+int waktu_selesai_istirahat = 360; // DALAM MENIT
+int pukul_waktu;
+int antrean;
+int jumlah_kendaraan;
+int jumlah_waktu;
+// DEKLARASI VARIABEL GLOBAL - END
+
+// DEKLARASI MODUL
+void bantuan_aplikasi();
+void tombol_selanjutnya();
+void data_antrian();
+void konversi_waktu();
+void konversi_waktu_cuci(int menit_cuci);
+void input_kendaraan();
+void cancel_kendaraan();
+int cek_nopol(char no_plat[], int *tanda_tempat);
+int jenis_kendaraan();
+void keluarkan(int tanda_tempat, char no_plat[]);
+int cek_antrian();
+int keluar_kendaraan(char no_plat[], struct antrian_cuci *tempat);
+void skip_waktu_berjalan(int m);
+void simulasi_waktu();
+void cek_sisawaktu_cuci();
+void dequeue(int pilih);
+void hitung_total(int pilih);
+void pra_enqueue(char no_plat[],int golongan);
+void hitung_durasi();
+int pilih_tempat_cuci();
+void enqueue_proses(struct antrian_cuci *data_inputan, struct antrian_cuci *tempat, int pilihan);
+void notifikasi_status(char no_plat[], int golongan);
+// DEKLARASI MODUL
 
 // DEKLARASI MODUL FUNCTION
 int exit_aplikasi_antrian();		// MODUL UNTUK KELUAR APLIKASI
@@ -22,7 +75,7 @@ int salah_input_menu_antrian();		// MODUL UNTUK ERROR HANDLE APABILA SALAH INPUT
 
 
 
-// FUNCTION UTAMA UNTUK ANTRIAN DARI APLIKASI BRADA STEAM
+// FUNCTION UTAMA UNTUK ANTRIAN DARI APLIKASI
 int main_antrian(){
 	// DEKLARASI VARIABEL LOKAL
 	int pilihan;
@@ -37,7 +90,7 @@ int main_antrian(){
 
 	if(pukul_waktu >= waktu_tutup){
 		printf("\n");
-		printf("  Brada Steam waktunya tutup\n");
+		printf("  SiCarwash waktunya tutup\n");
 		printf("  Total waktu mencuci mobil adalah %d menit, dengan total kendaraan yang dicuci sebanyak %d mobil\n",jumlah_waktu,jumlah_kendaraan);
 		printf("  Terimakasih! Sampai Jumpa Kembali\n\n");
 		footer_aplikasi();
@@ -45,7 +98,7 @@ int main_antrian(){
 	}
 	else if(pukul_waktu >= waktu_mulai_istirahat && pukul_waktu <= waktu_selesai_istirahat){
 		printf("\n");
-		printf("  Brada Steam Sedang Istirahat dari jam 12:00 - 13:00");
+		printf("  SiCarwash Sedang Istirahat dari jam 12:00 - 13:00");
 		printf("\n");
 	}
 	else{
@@ -62,7 +115,7 @@ int main_antrian(){
 		printf("| 3.  Simulasi waktu (%d menit)                   |\n",durasi_simulasi);
 		printf("|                                                 |\n");
 		printf("|=================================================|\n");
-		printf("             Copyright 2022 - BradaSteam           \n");
+		printf("             Copyright 2022 - SiCarwash            \n");
 
 		printf("\n\n");
 	    printf("Masukkan Pilihan : ");
@@ -101,7 +154,7 @@ int main_antrian(){
 			printf("| 10. Skip (60 Menit)                             |\n");
 			printf("|                                                 |\n");
 			printf("|=================================================|\n");
-			printf("             Copyright 2022 - BradaSteam           \n");
+			printf("             Copyright 2022 - SiCarwash            \n");
 
 			printf("\n\n");
 		    printf("Masukkan Pilihan : ");
@@ -205,7 +258,7 @@ int main_antrian(){
 			printf("| 5.  Selesai                                     |\n");
 			printf("|                                                 |\n");
 			printf("|=================================================|\n");
-			printf("             Copyright 2022 - BradaSteam           \n");
+			printf("             Copyright 2022 - SiCarwash            \n");
 
 			printf("\n\n");
 		    printf("Masukkan Pilihan : ");
@@ -273,26 +326,14 @@ int main_antrian(){
 		}
 	}	    
 }
-// FUNCTION UTAMA UNTUK ANTRIAN DARI APLIKASI BRADA STEAM - END
-
-
-
-// FUNCTION UNTUK MENAMPILKAN HEADER APLIKASI
-void header_aplikasi(){
-	printf("|===========================================================================================================|\n");
-	printf("|                                                                                                           |\n");
-	printf("|                                               BRADA STEAM                                                 |\n");
-	printf("|                                                                                                           |\n");
-	printf("|===========================================================================================================|\n");
-}
-// FUNCTION UNTUK MENAMPILKAN HEADER APLIKASI - END
+// FUNCTION UTAMA UNTUK ANTRIAN DARI APLIKASI - END
 
 
 
 // FUNCTION UNTUK BANTUAN APABILA ADA KESULITAN DALAM PENGGUNAAN APLIKASI
 void bantuan_aplikasi(){
 	printf("\n");
-	printf("BANTUAN PADA APLIKASI BRADA STEAM (PANDUAN) : \n");
+	printf("BANTUAN PADA APLIKASI SICARWASH (PANDUAN) : \n");
 	printf("- Tabel paling atas merupakan list antrian mobil beserta tempat pencuciannya\n");
 	printf("- Ketik '0' pada setiap inputan, jika kamu tidak akan jadi melakukan hal tersebut (input data)\n");
 	printf("- ketik '1' pada menu untuk input kendaraan\n");
@@ -303,15 +344,6 @@ void bantuan_aplikasi(){
 }
 // FUNCTION UNTUK BANTUAN APABILA ADA KESULITAN DALAM PENGGUNAAN APLIKASI - END
 
-
-
-// FUNCTION UNTUK MENAMPILKAN FOOTER APLIKASI
-void footer_aplikasi(){
-	printf("|===========================================================================================================|\n");
-	printf("|                                         Copyright 2022 - BradaSteam                                       |\n");
-	printf("|===========================================================================================================|\n");
-}
-// FUNCTION UNTUK MENAMPILKAN FOOTER APLIKASI - END
 
 
 
@@ -423,7 +455,7 @@ void konversi_waktu_cuci(int menit_cuci){
 // FUNCTION UNTUK KELUAR DARI APLIKASI
 int exit_aplikasi_antrian(){
 	char pil_out;
-	printf("Anda Yakin Akan Keluar Dari Aplikasi BradaSteam? (Y/N) : "); 
+	printf("Anda Yakin Akan Keluar Dari Aplikasi SiCarwash? (Y/N) : "); 
 	pil_out = getche(); 
 
 	system("cls");
@@ -470,13 +502,13 @@ void input_kendaraan(){
 	}
 
 	if(waktu_tutup < (pilihan_durasi[jenis-1] + pukul_waktu)){
-		printf("Waktu tidak mencukupi dikarenakan sebentar lagi Brada Steam akan tutup");
+		printf("Waktu tidak mencukupi dikarenakan sebentar lagi SiCarwash akan tutup");
 		tombol_selanjutnya();
 		main_antrian(); // MODUL UTAMA
 	}
 
 	if((waktu_mulai_istirahat < (pilihan_durasi[jenis-1] + pukul_waktu)) && (waktu_selesai_istirahat > (pilihan_durasi[jenis-1] + pukul_waktu))){
-		printf("Waktu tidak mencukupi dikarenakan sebentar lagi Brada Steam akan beristirahat");
+		printf("Waktu tidak mencukupi dikarenakan sebentar lagi SiCarwash akan beristirahat");
 		tombol_selanjutnya();
 		main_antrian(); // MODUL UTAMA
 	}

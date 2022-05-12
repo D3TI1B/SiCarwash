@@ -1,15 +1,15 @@
-# Project: SiCarwashAPP
+# Project: SiCarwash_App
 # Makefile created by Dev-C++ 5.11
 
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o antrian.o homepage.o sys_compare.o
-LINKOBJ  = main.o antrian.o homepage.o sys_compare.o
+OBJ      = main.o layout.o homepage.o queue_controller.o sys_compare.o
+LINKOBJ  = main.o layout.o homepage.o queue_controller.o sys_compare.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
-BIN      = SiCarwashAPP.exe
+BIN      = SiCarwash_App.exe
 CXXFLAGS = $(CXXINCS) 
 CFLAGS   = $(INCS) 
 RM       = rm.exe -f
@@ -27,11 +27,14 @@ $(BIN): $(OBJ)
 main.o: main.cpp
 	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
 
-antrian.o: antrian.cpp
-	$(CPP) -c antrian.cpp -o antrian.o $(CXXFLAGS)
+layout.o: layout.cpp
+	$(CPP) -c layout.cpp -o layout.o $(CXXFLAGS)
 
 homepage.o: homepage.cpp
 	$(CPP) -c homepage.cpp -o homepage.o $(CXXFLAGS)
+
+queue_controller.o: queue_controller.cpp
+	$(CPP) -c queue_controller.cpp -o queue_controller.o $(CXXFLAGS)
 
 sys_compare.o: sys_compare.cpp
 	$(CPP) -c sys_compare.cpp -o sys_compare.o $(CXXFLAGS)

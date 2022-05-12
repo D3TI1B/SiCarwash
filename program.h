@@ -4,9 +4,4 @@
 // FUNCTION SETIAP HOMEPAGE
 int homepage();				//FILE : homepage.cpp
 
-
-
-
-
 #endif
-

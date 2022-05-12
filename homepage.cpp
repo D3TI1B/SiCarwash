@@ -6,8 +6,8 @@
 // PEMANGGILAN LIBRARY - END
 
 // PEMANGGILAN HEADER FILE
-#include "program.h"
-#include "antrian.h"
+#include "layout.h"
+#include "queue_controller.h"
 // PEMANGGILAN HEADER FILE - END
 
 // DEKLARASI MODUL FUNCTION
@@ -15,7 +15,7 @@ int exit_aplikasi();		// MODUL UNTUK KELUAR APLIKASI
 int salah_input_menu();		// MODUL UNTUK ERROR HANDLE APABILA SALAH INPUT PADA MENU
 // DEKLARASI MODUL FUNCTION - END
 
-// FUNCTION UTAMA UNTUK HOMEPAGE DARI APLIKASI BRADA STEAM
+// FUNCTION UTAMA UNTUK HOMEPAGE DARI APLIKASI
 int homepage(){
 	// DEKLARASI VARIABEL LOKAL
 	int menu;
@@ -51,12 +51,12 @@ int homepage(){
 			break;
     }
 }
-// FUNCTION UTAMA UNTUK HOMEPAGE DARI APLIKASI BRADA STEAM - END
+// FUNCTION UTAMA UNTUK HOMEPAGE DARI APLIKASI - END
 
 // FUNCTION UNTUK KELUAR DARI APLIKASI
 int exit_aplikasi(){
 	char pil_out;
-	printf("Anda Yakin Akan Keluar Dari Aplikasi BradaSteam? (Y/N) : "); 
+	printf("Anda Yakin Akan Keluar Dari Aplikasi SiCarwash? (Y/N) : "); 
 	pil_out = getche(); 
 
 	system("cls");

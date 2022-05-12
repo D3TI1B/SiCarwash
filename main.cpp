@@ -1,10 +1,3 @@
-/*
-Nama Program	: Brada Steam
-Deskripsi		: Program simulasi antrian pelayanan cuci mobil di Ciamis
-Developer		: Bagus Nugroho (211511034)
-Tahun 			: MARET 2022
-*/
-
 // PEMANGGILAN LIBRARY
 #include <stdio.h>
 #include <conio.h>
@@ -12,8 +5,8 @@ Tahun 			: MARET 2022
 // PEMANGGILAN LIBRARY - END
 
 // PEMANGGILAN HEADER FILE
+#include "layout.h"
 #include "program.h"
-#include "antrian.h"
 // PEMANGGILAN HEADER FILE - END
 
 // DEKLARASI MODUL
@@ -21,7 +14,6 @@ void gotoxy(int x, int y);
 // DEKLARASI MODUL - END
 
 int main() {
-	
 	// PROSES FITUR SPLASH SCREEN
 	int load = 0; // UNTUK MENGHITUNG JUMLAH TITIK
 	
@@ -59,9 +51,12 @@ int main() {
 	// BYPASS KE HOMEPAGE.CPP
 	homepage();
 
+	system("cls");
+	printf("LOADING Selesai");
 	return 0;
 }
 
+// MODUL UNTUK MENGATUR POSISI LOADING
 void gotoxy(int x, int y) 
 { 
     COORD coord;
@@ -69,4 +64,4 @@ void gotoxy(int x, int y)
     coord.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
-
+// MODUL UNTUK MENGATUR POSISI LOADING - END
