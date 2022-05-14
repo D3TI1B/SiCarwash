@@ -7,12 +7,12 @@
 // PEMANGGILAN LIBRARY - END
 
 
-
 // PEMANGGILAN FILE HEADER
 #include "layout.h"
 #include "queue_controller.h"
 #include "sys_compare.h"
 // PEMANGGILAN FILE HEADER - END
+
 
 // DEKLARASI VARIABEL GLOBAL
 typedef struct antrian_cuci *address;
@@ -20,6 +20,7 @@ struct antrian_cuci{
 	char nopol[15];
 	int golongan;
 	int durasi;
+	int harga;
 	int waktu_in;
 	int waktu_proses;
 	int waktu_out;
@@ -44,6 +45,7 @@ int jumlah_kendaraan;
 int jumlah_waktu;
 int jumlah_harga;
 // DEKLARASI VARIABEL GLOBAL - END
+
 
 // DEKLARASI MODUL
 void tombol_selanjutnya();
@@ -92,7 +94,7 @@ int main_antrian(){
 	if(pukul_waktu >= waktu_tutup){
 		printf("\n");
 		printf("  SiCarwash waktunya tutup\n");
-		printf("  Total waktu mencuci mobil adalah %d menit, dengan total kendaraan yang dicuci sebanyak %d mobil\n",jumlah_waktu,jumlah_kendaraan);
+		printf("  Total waktu mencuci mobil adalah %d menit, dengan total kendaraan yang dicuci sebanyak %d mobil dengan total pemasukan Rp. %d \n",jumlah_waktu,jumlah_kendaraan,jumlah_harga);
 		printf("  Terimakasih! Sampai Jumpa Kembali\n\n");
 		footer_aplikasi();
     	exit(1);
@@ -241,17 +243,13 @@ int main_antrian(){
 		else{
 			printf("\n");
 			printf("\n");
-			printf("|=================================================|\n");
-			printf("|          Silahkan Pilih Menu Dibawah :          |\n");
-			printf("|=================================================|\n");
+			header_menu();
 			printf("| 1.  Input Kendaraan                             |\n");
 			printf("| 2.  Keluarkan Kendaraan Dari Antrian            |\n");
 			printf("| 3.  Simulasi waktu (%d menit)                   |\n",durasi_simulasi);
 			printf("| 4.  Bantuan                                     |\n");
 			printf("| 5.  Selesai                                     |\n");
-			printf("|                                                 |\n");
-			printf("|=================================================|\n");
-			printf("             Copyright 2022 - SiCarwash            \n");
+			footer_menu();
 
 			printf("\n\n");
 		    printf("Masukkan Pilihan : ");
@@ -393,7 +391,7 @@ void data_antrian(){
 	printf("\n");
 	printf("Total waktu  	: %d Menit\n",jumlah_waktu);
 	printf("Total Kendaraan : %d Mobil\n",jumlah_kendaraan);
-	printf("Total Pemasukan : %d Mobil\n",jumlah_harga);
+	printf("Total Pemasukan : Rp. %d \n",jumlah_harga);
 }
 // FUNCTION UNTUK MENAMPILKAN SIMULASI ANTRIAN PADA TEMPAT CUCI MOBIL - END
 
@@ -802,16 +800,19 @@ void hitung_total(int pilih){
 		case 1:
 			jumlah_kendaraan++;
 			jumlah_waktu += pilihan_durasi[0];
+			jumlah_harga += pilihan_harga[0];
 			break;
 
 		case 2:
 			jumlah_kendaraan++;
 			jumlah_waktu += pilihan_durasi[1];
+			jumlah_harga += pilihan_harga[1];
 			break;
 
 		case 3:
 			jumlah_kendaraan++;
 			jumlah_waktu += pilihan_durasi[2];
+			jumlah_harga += pilihan_harga[2];
 			break;
 	}
 }
@@ -837,18 +838,21 @@ void pra_enqueue(char no_plat[], int golongan){
 			case 1:
 				data_inputan->golongan = 1;
 				data_inputan->durasi = pilihan_durasi[0];
+				data_inputan->harga = pilihan_harga[0];
 				data_inputan->waktu_in = pukul_waktu;
 				break;
 
 			case 2:
 				data_inputan->golongan = 2;
 				data_inputan->durasi = pilihan_durasi[1];
+				data_inputan->harga = pilihan_harga[1];
 				data_inputan->waktu_in = pukul_waktu;
 				break;
 
 			case 3:
 				data_inputan->golongan = 3;
-				data_inputan->durasi = pilihan_durasi[2];	
+				data_inputan->durasi = pilihan_durasi[2];
+				data_inputan->harga = pilihan_harga[2];	
 				data_inputan->waktu_in = pukul_waktu;	
 				break;
 		}
@@ -901,7 +905,6 @@ void hitung_durasi(){
 	}
 }
 // FUNCTION UNTUK MENGHITUNG DURASI PENCUCIAN MOBIL - END
-
 
 
 // FUNCTION UNTUK PROSES PENENTUAN TEMPAT CUCI MOBIL
