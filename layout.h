@@ -2,8 +2,11 @@
 #define layout_h
 
 // DEKLARASI MODUL
-void header_aplikasi();
-void footer_aplikasi();
+void header_aplikasi(); // FUNCTION UNTUK MENAMPILKAN HEADER APLIKASI
+void header_menu(); // FUNCTION UNTUK MENAMPILKAN HEADER MENU
+void footer_aplikasi(); // FUNCTION UNTUK MENAMPILKAN FOOTER APLIKASI
+void footer_menu(); // FUNCTION UNTUK MENAMPILKAN FOOTER MENU
+void bantuan_aplikasi(); // FUNCTION UNTUK BANTUAN APABILA ADA KESULITAN DALAM PENGGUNAAN APLIKASI
 // DEKLARASI MODUL
 
 #endif

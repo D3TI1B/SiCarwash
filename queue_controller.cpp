@@ -31,6 +31,7 @@ antrian_cuci *tempat_cuci_2 = NULL; // LIST MENUNJUK NULL
 
 int jumlah_durasi[2];
 int pilihan_durasi[3] = {30,45,75};
+int pilihan_harga[3] = {10000,30000,50000};
 int durasi_simulasi = 5; // SIMULASI SKIP WAKTU DI SET 5 MENIT
 int durasi_jeda = 5; // SIMULASI JEDA WAKTU DI SET 5 MENIT SETIAP SELESAI MENCUCI
 int waktu_buka = 0; // DALAM MENIT
@@ -41,10 +42,10 @@ int pukul_waktu;
 int antrean;
 int jumlah_kendaraan;
 int jumlah_waktu;
+int jumlah_harga;
 // DEKLARASI VARIABEL GLOBAL - END
 
 // DEKLARASI MODUL
-void bantuan_aplikasi();
 void tombol_selanjutnya();
 void data_antrian();
 void konversi_waktu();
@@ -109,13 +110,9 @@ int main_antrian(){
 	if(pukul_waktu >= waktu_mulai_istirahat && pukul_waktu <= waktu_selesai_istirahat){
 		printf("\n");
 		printf("\n");
-		printf("|=================================================|\n");
-		printf("|          Silahkan Pilih Menu Dibawah :          |\n");
-		printf("|=================================================|\n");
+		header_menu();
 		printf("| 3.  Simulasi waktu (%d menit)                   |\n",durasi_simulasi);
-		printf("|                                                 |\n");
-		printf("|=================================================|\n");
-		printf("             Copyright 2022 - SiCarwash            \n");
+		footer_menu();
 
 		printf("\n\n");
 	    printf("Masukkan Pilihan : ");
@@ -139,12 +136,10 @@ int main_antrian(){
 		if((tempat_cuci_1 == NULL) && (tempat_cuci_2 == NULL)){
 			printf("\n");
 			printf("\n");
-			printf("|=================================================|\n");
-			printf("|          Silahkan Pilih Menu Dibawah :          |\n");
-			printf("|=================================================|\n");
+			header_menu();
 			printf("| 1.  Input Kendaraan                             |\n");
 			printf("| 2.  Keluarkan Kendaraan Dari Antrian            |\n");
-			printf("| 3.  Simulasi waktu (%d menit)                   |\n",durasi_simulasi);
+			printf("| 3.  Simulasi waktu (%d menit)                    |\n",durasi_simulasi);
 			printf("| 4.  Bantuan                                     |\n");
 			printf("| 5.  Selesai                                     |\n");
 			printf("| 6.  Skip (10 Menit)                             |\n");
@@ -152,9 +147,7 @@ int main_antrian(){
 			printf("| 8.  Skip (30 Menit)                             |\n");
 			printf("| 9.  Skip (45 Menit)                             |\n");
 			printf("| 10. Skip (60 Menit)                             |\n");
-			printf("|                                                 |\n");
-			printf("|=================================================|\n");
-			printf("             Copyright 2022 - SiCarwash            \n");
+			footer_menu();
 
 			printf("\n\n");
 		    printf("Masukkan Pilihan : ");
@@ -330,23 +323,6 @@ int main_antrian(){
 
 
 
-// FUNCTION UNTUK BANTUAN APABILA ADA KESULITAN DALAM PENGGUNAAN APLIKASI
-void bantuan_aplikasi(){
-	printf("\n");
-	printf("BANTUAN PADA APLIKASI SICARWASH (PANDUAN) : \n");
-	printf("- Tabel paling atas merupakan list antrian mobil beserta tempat pencuciannya\n");
-	printf("- Ketik '0' pada setiap inputan, jika kamu tidak akan jadi melakukan hal tersebut (input data)\n");
-	printf("- ketik '1' pada menu untuk input kendaraan\n");
-	printf("- ketik '2' pada menu apabila ada kendaraan yang tidak jadi di cuci namun masih pada antrian\n");
-	printf("- ketik '3' pada menu untuk melakukan pencucian selama 5 menit ke depan\n");
-	printf("- ketik '4' pada menu untuk bantuan penggunaan aplikasi\n");
-	printf("- ketik '5' pada menu untuk keluar dari aplikasi\n");
-}
-// FUNCTION UNTUK BANTUAN APABILA ADA KESULITAN DALAM PENGGUNAAN APLIKASI - END
-
-
-
-
 // FUNCTION UNTUK MENAMPILKAN ALERT
 void tombol_selanjutnya(){
 	printf("\n");
@@ -417,6 +393,7 @@ void data_antrian(){
 	printf("\n");
 	printf("Total waktu  	: %d Menit\n",jumlah_waktu);
 	printf("Total Kendaraan : %d Mobil\n",jumlah_kendaraan);
+	printf("Total Pemasukan : %d Mobil\n",jumlah_harga);
 }
 // FUNCTION UNTUK MENAMPILKAN SIMULASI ANTRIAN PADA TEMPAT CUCI MOBIL - END
 
@@ -626,14 +603,14 @@ int jenis_kendaraan(){
 	int pilihan_jenis_kendaraan;
 	printf("\n");
 	printf("\n");
-	printf("|=====================================================================================================|\n");
-	printf("|                                            JENIS KENDARAAN                                          |\n");
-	printf("|=====================================================================================================|\n");
-	printf("| NO | JENIS | KETERANGAN  |                            SAMPEL                             |  DURASI  |\n");
-	printf("| 1. |   A   | Mobil Kecil | KIA Picanto, Daihatsu Ceria, Suzuki Karimun, Toyota Yaris dll | %d menit |\n",pilihan_durasi[0]);
-	printf("| 2. |   B   | Minibus     | Toyota Avanza, Honda Freed, Suzuki Ertiga, dll                | %d menit |\n",pilihan_durasi[1]);
-	printf("| 3. |   C   | Mobil Besar | Metromini, Truk, dll                                          | %d menit |\n",pilihan_durasi[2]);
-	printf("|=====================================================================================================|\n");
+	printf("|==================================================================================================================|\n");
+	printf("|                                                    JENIS KENDARAAN                                               |\n");
+	printf("|==================================================================================================================|\n");
+	printf("| NO | JENIS | KETERANGAN  |                            SAMPEL                             |  DURASI  |    HARGA   |\n");
+	printf("| 1. |   A   | Mobil Kecil | KIA Picanto, Daihatsu Ceria, Suzuki Karimun, Toyota Yaris dll | %d menit | Rp. %d  |\n",pilihan_durasi[0], pilihan_harga[0]);
+	printf("| 2. |   B   | Minibus     | Toyota Avanza, Honda Freed, Suzuki Ertiga, dll                | %d menit | Rp. %d  |\n",pilihan_durasi[1], pilihan_harga[1]);
+	printf("| 3. |   C   | Mobil Besar | Metromini, Truk, dll                                          | %d menit | Rp. %d  |\n",pilihan_durasi[2], pilihan_harga[2]);
+	printf("|==================================================================================================================|\n");
 
 	do{
 		printf("\n");
