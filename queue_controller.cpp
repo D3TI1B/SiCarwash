@@ -13,6 +13,7 @@
 #include "sys_compare.h"
 // PEMANGGILAN FILE HEADER - END
 
+#define BUFFER_SIZE 1000
 
 // DEKLARASI VARIABEL GLOBAL
 typedef struct antrian_cuci *address;
@@ -69,7 +70,9 @@ void hitung_durasi();
 int pilih_tempat_cuci();
 void enqueue_proses(struct antrian_cuci *data_inputan, struct antrian_cuci *tempat, int pilihan);
 void notifikasi_status(char no_plat[], int golongan);
+void tampil_laporan_semua(struct antrian_cuci *tempat);
 // DEKLARASI MODUL
+
 
 // DEKLARASI MODUL FUNCTION
 int exit_aplikasi_antrian();		// MODUL UNTUK KELUAR APLIKASI
@@ -778,6 +781,7 @@ void dequeue(int pilih){
 		case 0:
 			hitung_total(tempat_cuci_1->golongan);
 			tempat = tempat_cuci_1;
+			tampil_laporan_semua(tempat); // generate laporan
 			tempat_cuci_1 = tempat_cuci_1->next;
 			free(tempat); // DI DEALOKASI
 			break;
@@ -785,6 +789,7 @@ void dequeue(int pilih){
 		case 1:
 			hitung_total(tempat_cuci_2->golongan);
 			tempat = tempat_cuci_2;
+			tampil_laporan_semua(tempat); // generate laporan
 			tempat_cuci_2 = tempat_cuci_2->next;
 			free(tempat); // DI DEALOKASI
 			break;
@@ -1003,3 +1008,37 @@ void notifikasi_status(char no_plat[], int golongan){
 	}
 }
 // FUNCTION UNTUK PUSH NOTIFIKASI - END
+
+// MODUL UNTUK MENAMPILKAN LAPORAN TRANSAKSI SEMUA DATA
+void tampil_laporan_semua(antrian_cuci *tempat)
+{
+	char filename_csv[255], baris[255];
+	// antrian_cuci data_transaksi; // VARIABEL STRUCT
+	FILE *f_csv; // VARIABEL FILE
+
+	strcpy(filename_csv, "main_data/LAPORAN SEMUA TRANSAKSI.csv");
+
+	if (!(f_csv = fopen(filename_csv, "a")))
+	{
+		system("cls");
+		printf ("File %s tidak dapat diakses\n", filename_csv); 
+		printf("Silahkan tekan Enter untuk kembali ke halaman laporan transaksi...");
+		getch();
+
+		// REDIRECT KE main_antrian() UNTUK KEMBALI
+		main_antrian();
+	}
+
+
+	sprintf(baris,"NO POLISI,GOLONGAN,DURASI,HARGA,IN,PROSES,OUT\n");
+	fputs(baris,f_csv);
+
+
+	// PROSES MEMASUKAN DATA KE CSV FILE
+	sprintf(baris,"%s,%d,%d,%d,%d,%d,%d\n",tempat->nopol, tempat->golongan, tempat->durasi, tempat->harga, tempat->waktu_in, tempat->waktu_proses, tempat->waktu_out);
+	fputs(baris,f_csv);
+	
+	fclose(f_csv);
+	
+}
+// MODUL UNTUK MENAMPILKAN LAPORAN TRANSAKSI SEMUA DATA - END
