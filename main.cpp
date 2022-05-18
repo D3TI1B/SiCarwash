@@ -7,6 +7,7 @@
 // PEMANGGILAN HEADER FILE
 #include "layout.h"
 #include "program.h"
+#include "report.h"
 // PEMANGGILAN HEADER FILE - END
 
 // DEKLARASI MODUL
@@ -14,8 +15,8 @@ void gotoxy(int x, int y);
 // DEKLARASI MODUL - END
 
 int main() {
+	hapus_laporan(); // HAPUS FILE LAPORAN
 
-	
 	// PROSES FITUR SPLASH SCREEN
 	int load = 0; // UNTUK MENGHITUNG JUMLAH TITIK
 	

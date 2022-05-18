@@ -8,6 +8,7 @@
 // PEMANGGILAN HEADER FILE
 #include "layout.h"
 #include "queue_controller.h"
+#include "report.h"
 // PEMANGGILAN HEADER FILE - END
 
 // DEKLARASI MODUL FUNCTION
@@ -17,6 +18,7 @@ int salah_input_menu();		// MODUL UNTUK ERROR HANDLE APABILA SALAH INPUT PADA ME
 
 // FUNCTION UTAMA UNTUK HOMEPAGE DARI APLIKASI
 int homepage(){
+	header_laporan_semua();
 	// DEKLARASI VARIABEL LOKAL
 	int menu;
 
@@ -41,7 +43,7 @@ int homepage(){
 	// SISTEM DIRECT TO PAGE BERKAITAN BERDASARKAN INPUTAN YANG DIPILIH OLEH USER
     switch (menu) { 
         case 1:
-			main_antrian(); 	// REDIRECT KE main_antrian() UNTUK MULAI SISTEM ANTRIAN - LOKASI FILE : antrian.h --> antrian.cpp
+			main_antrian(); 	// REDIRECT KE main_antrian() UNTUK MULAI SISTEM ANTRIAN
 			break;
 		case 2:
 		    exit_aplikasi(); 	// REDIRECT KE exit_aplikasi() UNTUK KELUAR DARI APLIKASI - LOKASI FILE : homepage.cpp

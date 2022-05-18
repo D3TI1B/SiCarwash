@@ -11,9 +11,14 @@
 #include "layout.h"
 #include "queue_controller.h"
 #include "sys_compare.h"
+#include "report.h"
 // PEMANGGILAN FILE HEADER - END
 
 #define BUFFER_SIZE 1000
+
+
+
+
 
 
 // DEKLARASI MODUL FUNCTION
@@ -37,6 +42,7 @@ int main_antrian(){
 	konversi_waktu();
 
 	if(pukul_waktu >= waktu_tutup){
+		tampil_laporan_akumulasi(); // EXPORT LAPORAN
 		printf("\n");
 		printf("  SiCarwash waktunya tutup\n");
 		printf("  Total waktu mencuci mobil adalah %d menit, dengan total kendaraan yang dicuci sebanyak %d mobil dengan total pemasukan Rp. %d \n",jumlah_waktu,jumlah_kendaraan,jumlah_harga);
@@ -149,9 +155,10 @@ int main_antrian(){
 
 					header_aplikasi();	
 					printf("\n");
-					printf("  Total waktu mencuci mobil adalah %d menit, dengan total kendaraan yang dicuci sebanyak %d mobil\n",jumlah_waktu,jumlah_kendaraan);
+					printf("  Total waktu mencuci mobil adalah %d menit, dengan total kendaraan yang dicuci sebanyak %d mobil dengan total pemasukan Rp. %d \n",jumlah_waktu,jumlah_kendaraan,jumlah_harga);
 					printf("  Terimakasih! Sampai Jumpa Kembali\n\n");
 					footer_aplikasi();	
+					exit(1);
 
 					break;
 
@@ -247,6 +254,7 @@ int main_antrian(){
 					
 					system("cls");
 
+					tampil_laporan_akumulasi(); // EXPORT LAPORAN
 					header_aplikasi();	
 					printf("\n");
 					printf("  Total waktu mencuci mobil adalah %d menit, dengan total kendaraan yang dicuci sebanyak %d mobil\n",jumlah_waktu,jumlah_kendaraan);
@@ -951,33 +959,6 @@ void notifikasi_status(char no_plat[], int golongan){
 }
 // FUNCTION UNTUK PUSH NOTIFIKASI - END
 
-// MODUL UNTUK EXPORT HEADER LAPORAN TRANSAKSI SEMUA DATA
-void header_laporan_semua()
-{
-	char filename_csv[255], baris[255];
-	FILE *f_csv; // VARIABEL FILE
-
-	strcpy(filename_csv, "main_data/LAPORAN SEMUA TRANSAKSI.csv");
-
-	if (!(f_csv = fopen(filename_csv, "w")))
-	{
-		system("cls");
-		printf ("File %s tidak dapat diakses\n", filename_csv); 
-		printf("Silahkan tekan Enter untuk kembali ke halaman laporan transaksi...");
-		getch();
-
-		// REDIRECT KE main_antrian() UNTUK KEMBALI
-		main_antrian();
-	}
-
-	sprintf(baris,"NO POLISI,GOLONGAN,DURASI,HARGA,IN,PROSES,OUT\n");
-	fputs(baris,f_csv);
-	
-	fclose(f_csv);
-	
-}
-// MODUL UNTUK EXPORT HEADER LAPORAN TRANSAKSI SEMUA DATA - END
-
 // MODUL UNTUK EXPORT LAPORAN TRANSAKSI SEMUA DATA
 void tampil_laporan_semua(antrian_cuci *tempat)
 {
@@ -1007,10 +988,3 @@ void tampil_laporan_semua(antrian_cuci *tempat)
 }
 // MODUL UNTUK EXPORT LAPORAN TRANSAKSI SEMUA DATA - END
 
-
-// MODUL UNTUK MENGHAPUS LAPORAN
-void hapus_laporan()
-{
-	remove("main_data/LAPORAN SEMUA TRANSAKSI.csv");
-}
-// MODUL UNTUK MENGHAPUS LAPORAN - END
