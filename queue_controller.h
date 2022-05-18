@@ -19,7 +19,7 @@ antrian_cuci *tempat_cuci_1 = NULL; // LIST MENUNJUK NULL
 antrian_cuci *tempat_cuci_2 = NULL; // LIST MENUNJUK NULL
 
 int jumlah_durasi[2];
-int pilihan_durasi[3] = {30,45,75};
+int pilihan_durasi[3] = {45,60,90};
 int pilihan_harga[3] = {10000,30000,50000};
 int durasi_simulasi = 5; // SIMULASI SKIP WAKTU DI SET 5 MENIT
 int durasi_jeda = 5; // SIMULASI JEDA WAKTU DI SET 5 MENIT SETIAP SELESAI MENCUCI

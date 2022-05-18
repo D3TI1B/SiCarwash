@@ -42,7 +42,7 @@ void header_laporan_semua()
 // MODUL UNTUK EXPORT HEADER LAPORAN TRANSAKSI SEMUA DATA - END
 
 // MODUL UNTUK EXPORT LAPORAN AKUMULASI
-void tampil_laporan_akumulasi()
+void tampil_laporan_akumulasi( int jumlah_kendaraan, int jumlah_waktu, int jumlah_harga)
 {
 	char filename[255], brs[255];
 	FILE *file_csv; // VARIABEL FILE
@@ -60,7 +60,10 @@ void tampil_laporan_akumulasi()
 		// main_antrian();
 	}
 	else{
-		sprintf(brs,"NO POLISI,GOLONGAN,DURASI,HARGA,IN,PROSES,OUT\n");
+		sprintf(brs,"TOTAL MOBIL,TOTAL WAKTU CUCI,TOTAL PEMASUKAN\n");
+		fputs(brs,file_csv);
+
+		sprintf(brs,"%d Mobil,%d Menit,Rp. %d\n", jumlah_kendaraan, jumlah_waktu, jumlah_harga);
 		fputs(brs,file_csv);
 	}
 

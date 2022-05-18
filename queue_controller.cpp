@@ -42,10 +42,12 @@ int main_antrian(){
 	konversi_waktu();
 
 	if(pukul_waktu >= waktu_tutup){
-		tampil_laporan_akumulasi(); // EXPORT LAPORAN
+		tampil_laporan_akumulasi(jumlah_kendaraan, jumlah_waktu, jumlah_harga); // EXPORT LAPORAN
 		printf("\n");
 		printf("  SiCarwash waktunya tutup\n");
-		printf("  Total waktu mencuci mobil adalah %d menit, dengan total kendaraan yang dicuci sebanyak %d mobil dengan total pemasukan Rp. %d \n",jumlah_waktu,jumlah_kendaraan,jumlah_harga);
+		printf("  Total waktu mencuci mobil adalah %d meni.\n",jumlah_waktu);
+		printf("  Total kendaraan yang dicuci sebanyak %d mobil.\n",jumlah_kendaraan);
+		printf("  Total pemasukan sebanyak Rp. %d \n",jumlah_harga);
 		printf("  Terimakasih! Sampai Jumpa Kembali\n\n");
 		footer_aplikasi();
     	exit(1);
@@ -64,7 +66,7 @@ int main_antrian(){
 		printf("\n");
 		printf("\n");
 		header_menu();
-		printf("| 3.  Simulasi waktu (%d menit)                   |\n",durasi_simulasi);
+		printf("| 3.  Simulasi waktu (%d menit)                    |\n",durasi_simulasi);
 		footer_menu();
 
 		printf("\n\n");
@@ -153,9 +155,12 @@ int main_antrian(){
 					
 					system("cls");
 
+					tampil_laporan_akumulasi(jumlah_kendaraan, jumlah_waktu, jumlah_harga); // EXPORT LAPORAN
 					header_aplikasi();	
 					printf("\n");
-					printf("  Total waktu mencuci mobil adalah %d menit, dengan total kendaraan yang dicuci sebanyak %d mobil dengan total pemasukan Rp. %d \n",jumlah_waktu,jumlah_kendaraan,jumlah_harga);
+					printf("  Total waktu mencuci mobil adalah %d menit.\n",jumlah_waktu);
+					printf("  Total kendaraan yang dicuci sebanyak %d mobil.\n",jumlah_kendaraan);
+					printf("  Total pemasukan sebanyak Rp. %d \n",jumlah_harga);
 					printf("  Terimakasih! Sampai Jumpa Kembali\n\n");
 					footer_aplikasi();	
 					exit(1);
@@ -198,7 +203,7 @@ int main_antrian(){
 			header_menu();
 			printf("| 1.  Input Kendaraan                             |\n");
 			printf("| 2.  Keluarkan Kendaraan Dari Antrian            |\n");
-			printf("| 3.  Simulasi waktu (%d menit)                   |\n",durasi_simulasi);
+			printf("| 3.  Simulasi waktu (%d menit)                    |\n",durasi_simulasi);
 			printf("| 4.  Bantuan                                     |\n");
 			printf("| 5.  Selesai                                     |\n");
 			footer_menu();
@@ -254,10 +259,12 @@ int main_antrian(){
 					
 					system("cls");
 
-					tampil_laporan_akumulasi(); // EXPORT LAPORAN
+					tampil_laporan_akumulasi(jumlah_kendaraan, jumlah_waktu, jumlah_harga); // EXPORT LAPORAN
 					header_aplikasi();	
 					printf("\n");
-					printf("  Total waktu mencuci mobil adalah %d menit, dengan total kendaraan yang dicuci sebanyak %d mobil\n",jumlah_waktu,jumlah_kendaraan);
+					printf("  Total waktu mencuci mobil adalah %d menit.\n",jumlah_waktu);
+					printf("  Total kendaraan yang dicuci sebanyak %d mobil.\n",jumlah_kendaraan);
+					printf("  Total pemasukan sebanyak Rp. %d \n",jumlah_harga);
 					printf("  Terimakasih! Sampai Jumpa Kembali\n\n");
 					footer_aplikasi();	
 
@@ -980,7 +987,9 @@ void tampil_laporan_semua(antrian_cuci *tempat)
 	}
 
 	// PROSES MEMASUKAN DATA KE CSV FILE
-	sprintf(baris,"%s,%d,%d,%d,%d,%d,%d\n",tempat->nopol, tempat->golongan, tempat->durasi, tempat->harga, tempat->waktu_in, tempat->waktu_proses, tempat->waktu_out);
+	int hitung_durasi_by_jenis; 
+	hitung_durasi_by_jenis =  tempat->waktu_out - tempat->waktu_proses;
+	sprintf(baris,"%s,%d,%d,%d,%d,%d,%d\n",tempat->nopol, tempat->golongan, hitung_durasi_by_jenis, tempat->harga, tempat->waktu_in, tempat->waktu_proses, tempat->waktu_out);
 	fputs(baris,f_csv);
 	
 	fclose(f_csv);
