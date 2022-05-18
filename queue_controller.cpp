@@ -951,7 +951,34 @@ void notifikasi_status(char no_plat[], int golongan){
 }
 // FUNCTION UNTUK PUSH NOTIFIKASI - END
 
-// MODUL UNTUK MENAMPILKAN LAPORAN TRANSAKSI SEMUA DATA
+// MODUL UNTUK EXPORT HEADER LAPORAN TRANSAKSI SEMUA DATA
+void header_laporan_semua()
+{
+	char filename_csv[255], baris[255];
+	FILE *f_csv; // VARIABEL FILE
+
+	strcpy(filename_csv, "main_data/LAPORAN SEMUA TRANSAKSI.csv");
+
+	if (!(f_csv = fopen(filename_csv, "w")))
+	{
+		system("cls");
+		printf ("File %s tidak dapat diakses\n", filename_csv); 
+		printf("Silahkan tekan Enter untuk kembali ke halaman laporan transaksi...");
+		getch();
+
+		// REDIRECT KE main_antrian() UNTUK KEMBALI
+		main_antrian();
+	}
+
+	sprintf(baris,"NO POLISI,GOLONGAN,DURASI,HARGA,IN,PROSES,OUT\n");
+	fputs(baris,f_csv);
+	
+	fclose(f_csv);
+	
+}
+// MODUL UNTUK EXPORT HEADER LAPORAN TRANSAKSI SEMUA DATA - END
+
+// MODUL UNTUK EXPORT LAPORAN TRANSAKSI SEMUA DATA
 void tampil_laporan_semua(antrian_cuci *tempat)
 {
 	char filename_csv[255], baris[255];
@@ -971,11 +998,6 @@ void tampil_laporan_semua(antrian_cuci *tempat)
 		main_antrian();
 	}
 
-
-	sprintf(baris,"NO POLISI,GOLONGAN,DURASI,HARGA,IN,PROSES,OUT\n");
-	fputs(baris,f_csv);
-
-
 	// PROSES MEMASUKAN DATA KE CSV FILE
 	sprintf(baris,"%s,%d,%d,%d,%d,%d,%d\n",tempat->nopol, tempat->golongan, tempat->durasi, tempat->harga, tempat->waktu_in, tempat->waktu_proses, tempat->waktu_out);
 	fputs(baris,f_csv);
@@ -983,4 +1005,12 @@ void tampil_laporan_semua(antrian_cuci *tempat)
 	fclose(f_csv);
 	
 }
-// MODUL UNTUK MENAMPILKAN LAPORAN TRANSAKSI SEMUA DATA - END
+// MODUL UNTUK EXPORT LAPORAN TRANSAKSI SEMUA DATA - END
+
+
+// MODUL UNTUK MENGHAPUS LAPORAN
+void hapus_laporan()
+{
+	remove("main_data/LAPORAN SEMUA TRANSAKSI.csv");
+}
+// MODUL UNTUK MENGHAPUS LAPORAN - END

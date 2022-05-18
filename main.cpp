@@ -14,6 +14,8 @@ void gotoxy(int x, int y);
 // DEKLARASI MODUL - END
 
 int main() {
+
+	
 	// PROSES FITUR SPLASH SCREEN
 	int load = 0; // UNTUK MENGHITUNG JUMLAH TITIK
 	

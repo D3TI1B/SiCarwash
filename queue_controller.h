@@ -58,7 +58,9 @@ void hitung_durasi();
 int pilih_tempat_cuci();
 void enqueue_proses(struct antrian_cuci *data_inputan, struct antrian_cuci *tempat, int pilihan);
 void notifikasi_status(char no_plat[], int golongan);
+void header_laporan_semua();
 void tampil_laporan_semua(struct antrian_cuci *tempat);
+void hapus_laporan();
 // DEKLRASI MODUL - END
 
 #endif
