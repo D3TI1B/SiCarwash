@@ -54,7 +54,7 @@ int main_antrian(){
 	}
 
 	// LIST MENU APLIKASI
-	if(pukul_waktu >= waktu_mulai_istirahat && pukul_waktu <= waktu_selesai_istirahat){
+	if(pukul_waktu >= waktu_mulai_istirahat && pukul_waktu < waktu_selesai_istirahat){
 		printf("\n");
 		printf("\n");
 		header_menu();
@@ -244,7 +244,7 @@ int main_antrian(){
 					system("cls");
 
 					ringkasan_total(); // MODUL UNTUK MENAMPILKAN RINGKASAN TOTAL TRANSAKSI
-					
+
 					exit(1);	
 
 					break;
@@ -433,7 +433,6 @@ void input_kendaraan(){
 		printf("Masukkan Nomor Polisi kendaraan : ");
 		scanf("%[^\n]", &no_plat);
 		fflush(stdin);
-		break;
 
 		cek = cek_nopol(no_plat, &tanda_tempat);
 		if(cek != 0){ // JIKA CEK BERNILAI BUKAN 0 MAKA SUDAH ADA DATA KENDARAAN PADA TEMPAT CUCI ATAU PADA ANTRIAN
@@ -500,8 +499,8 @@ int cek_nopol(char no_plat[], int *tanda_tempat){
 
 	if(tempat1 != NULL){
 		while(tempat1 != NULL){
-			int compare_1 = stringcompare(no_plat,tempat1->nopol); // CALLING STRINGCOMPARE() FUNCTION.  
-			if(compare_1 == 0){
+//			int compare_1 = strcmp(no_plat,tempat1->nopol); // CALLING STRINGCOMPARE() FUNCTION.  
+			if(strcmp(no_plat,tempat1->nopol)==0){
 				cek++;
 				*tanda_tempat = 1; 
 			}  
@@ -515,8 +514,8 @@ int cek_nopol(char no_plat[], int *tanda_tempat){
 
 	if(tempat2 != NULL){
 		while(tempat2 != NULL){
-			int compare_2 = stringcompare(no_plat,tempat2->nopol); // CALLING STRINGCOMPARE() FUNCTION.  
-			if(compare_2 == 0){
+//			int compare_2 = strcmp(no_plat,tempat2->nopol); // CALLING STRINGCOMPARE() FUNCTION.  
+			if(strcmp(no_plat,tempat2->nopol)==0){
 				cek++;
 				*tanda_tempat = 2;
 			}

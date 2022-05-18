@@ -26,7 +26,7 @@ int durasi_jeda = 5; // SIMULASI JEDA WAKTU DI SET 5 MENIT SETIAP SELESAI MENCUC
 int waktu_buka = 0; // DALAM MENIT
 int waktu_tutup = 600; // DALAM MENIT
 int waktu_mulai_istirahat = 300; // DALAM MENIT
-int waktu_selesai_istirahat = 360; // DALAM MENIT
+int waktu_selesai_istirahat = 359; // DALAM MENIT
 int pukul_waktu;
 int antrean;
 int jumlah_kendaraan;
