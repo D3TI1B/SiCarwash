@@ -42,15 +42,7 @@ int main_antrian(){
 	konversi_waktu();
 
 	if(pukul_waktu >= waktu_tutup){
-		tampil_laporan_akumulasi(jumlah_kendaraan, jumlah_waktu, jumlah_harga); // EXPORT LAPORAN
-		printf("\n");
-		printf("  SiCarwash waktunya tutup\n");
-		printf("  Total waktu mencuci mobil adalah %d meni.\n",jumlah_waktu);
-		printf("  Total kendaraan yang dicuci sebanyak %d mobil.\n",jumlah_kendaraan);
-		printf("  Total pemasukan sebanyak Rp. %d \n",jumlah_harga);
-		printf("  Terimakasih! Sampai Jumpa Kembali\n\n");
-		footer_aplikasi();
-    	exit(1);
+		ringkasan_total(); // MODUL UNTUK MENAMPILKAN RINGKASAN TOTAL TRANSAKSI
 	}
 	else if(pukul_waktu >= waktu_mulai_istirahat && pukul_waktu <= waktu_selesai_istirahat){
 		printf("\n");
@@ -155,15 +147,7 @@ int main_antrian(){
 					
 					system("cls");
 
-					tampil_laporan_akumulasi(jumlah_kendaraan, jumlah_waktu, jumlah_harga); // EXPORT LAPORAN
-					header_aplikasi();	
-					printf("\n");
-					printf("  Total waktu mencuci mobil adalah %d menit.\n",jumlah_waktu);
-					printf("  Total kendaraan yang dicuci sebanyak %d mobil.\n",jumlah_kendaraan);
-					printf("  Total pemasukan sebanyak Rp. %d \n",jumlah_harga);
-					printf("  Terimakasih! Sampai Jumpa Kembali\n\n");
-					footer_aplikasi();	
-					exit(1);
+					ringkasan_total(); // MODUL UNTUK MENAMPILKAN RINGKASAN TOTAL TRANSAKSI
 
 					break;
 
@@ -259,14 +243,9 @@ int main_antrian(){
 					
 					system("cls");
 
-					tampil_laporan_akumulasi(jumlah_kendaraan, jumlah_waktu, jumlah_harga); // EXPORT LAPORAN
-					header_aplikasi();	
-					printf("\n");
-					printf("  Total waktu mencuci mobil adalah %d menit.\n",jumlah_waktu);
-					printf("  Total kendaraan yang dicuci sebanyak %d mobil.\n",jumlah_kendaraan);
-					printf("  Total pemasukan sebanyak Rp. %d \n",jumlah_harga);
-					printf("  Terimakasih! Sampai Jumpa Kembali\n\n");
-					footer_aplikasi();	
+					ringkasan_total(); // MODUL UNTUK MENAMPILKAN RINGKASAN TOTAL TRANSAKSI
+					
+					exit(1);	
 
 					break;
 
@@ -997,3 +976,21 @@ void tampil_laporan_semua(antrian_cuci *tempat)
 }
 // MODUL UNTUK EXPORT LAPORAN TRANSAKSI SEMUA DATA - END
 
+// MODUL UNTUK MENAMPILKAN RINGKASAN TOTAL TRANSAKSI
+void ringkasan_total()
+{
+	tampil_laporan_akumulasi(jumlah_kendaraan, jumlah_waktu, jumlah_harga); // EXPORT LAPORAN
+
+	header_aplikasi(); // HEADER APLIKASI
+
+	printf("\n");
+	printf("  Total waktu mencuci mobil adalah %d menit.\n",jumlah_waktu);
+	printf("  Total kendaraan yang dicuci sebanyak %d mobil.\n",jumlah_kendaraan);
+	printf("  Total pemasukan sebanyak Rp. %d \n",jumlah_harga);
+	printf("  Terimakasih! Sampai Jumpa Kembali\n\n");
+
+	footer_aplikasi(); // FOOTER APLIKASI
+
+	exit(1);
+}
+// MODUL UNTUK MENAMPILKAN RINGKASAN TOTAL TRANSAKSI - END
