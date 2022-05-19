@@ -16,7 +16,6 @@
 
 #define BUFFER_SIZE 1000
 
-
 // DEKLARASI MODUL FUNCTION
 int exit_aplikasi_antrian();		// MODUL UNTUK KELUAR APLIKASI
 int salah_input_menu_antrian();		// MODUL UNTUK ERROR HANDLE APABILA SALAH INPUT PADA MENU

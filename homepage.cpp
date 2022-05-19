@@ -18,7 +18,7 @@ int salah_input_menu();		// MODUL UNTUK ERROR HANDLE APABILA SALAH INPUT PADA ME
 
 // FUNCTION UTAMA UNTUK HOMEPAGE DARI APLIKASI
 int homepage(){
-	header_laporan_semua();
+	header_laporan_semua(); // GENERATE HEADER LAPORAN SEMUA TRANSAKSI
 	// DEKLARASI VARIABEL LOKAL
 	int menu;
 
