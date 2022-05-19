@@ -18,20 +18,20 @@ struct antrian_cuci{
 antrian_cuci *tempat_cuci_1 = NULL; // LIST MENUNJUK NULL
 antrian_cuci *tempat_cuci_2 = NULL; // LIST MENUNJUK NULL
 
-int jumlah_durasi[2];
-int pilihan_durasi[3] = {45,60,90};
-int pilihan_harga[3] = {10000,30000,50000};
+int jumlah_durasi[2]; // DURASI PADA SETIAP TEMPAT CUCI
+int pilihan_durasi[3] = {45,60,90}; // DURASI SESUAI JENIS MOBIL
+int pilihan_harga[3] = {10000,30000,50000}; // HARGA SESUAI JENIS MOBIL
 int durasi_simulasi = 5; // SIMULASI SKIP WAKTU DI SET 5 MENIT
 int durasi_jeda = 5; // SIMULASI JEDA WAKTU DI SET 5 MENIT SETIAP SELESAI MENCUCI
 int waktu_buka = 0; // DALAM MENIT
 int waktu_tutup = 600; // DALAM MENIT
 int waktu_mulai_istirahat = 300; // DALAM MENIT
 int waktu_selesai_istirahat = 359; // DALAM MENIT
-int pukul_waktu;
-int antrean;
-int jumlah_kendaraan;
-int jumlah_waktu;
-int jumlah_harga;
+int pukul_waktu; // JAM SEBAGAI PENGGANTI JAM REALTIME
+int antrean; // TEMPAT CUCI
+int jumlah_kendaraan; // JUMLAH TOTAL KENDARAAN YANG DI CUCI
+int jumlah_waktu; // JUMLAH TOTAL WAKTU MENCUCI
+int jumlah_harga; // JUMLAH TOTAL PEMASUKAN
 // DEKLARASI VARIABEL GLOBAL - END
 
 
