@@ -60,6 +60,8 @@ void enqueue_proses(struct antrian_cuci *data_inputan, struct antrian_cuci *temp
 void notifikasi_status(char no_plat[], int golongan);
 
 void tampil_laporan_semua(struct antrian_cuci *tempat);
+void tampil_laporan_semua_tempat_cuci_1(antrian_cuci *tempat);
+void tampil_laporan_semua_tempat_cuci_2(antrian_cuci *tempat);
 void ringkasan_total(); // MODUL UNTUK MENAMPILKAN RINGKASAN TOTAL TRANSAKSI
 // DEKLRASI MODUL - END
 

@@ -16,6 +16,7 @@
 
 #define BUFFER_SIZE 1000
 
+
 // DEKLARASI MODUL FUNCTION
 int exit_aplikasi_antrian();		// MODUL UNTUK KELUAR APLIKASI
 int salah_input_menu_antrian();		// MODUL UNTUK ERROR HANDLE APABILA SALAH INPUT PADA MENU
@@ -712,6 +713,7 @@ void dequeue(int pilih){
 			hitung_total(tempat_cuci_1->golongan);
 			tempat = tempat_cuci_1;
 			tampil_laporan_semua(tempat); // generate laporan
+			tampil_laporan_semua_tempat_cuci_1(tempat);
 			tempat_cuci_1 = tempat_cuci_1->next;
 			free(tempat); // DI DEALOKASI
 			break;
@@ -720,6 +722,7 @@ void dequeue(int pilih){
 			hitung_total(tempat_cuci_2->golongan);
 			tempat = tempat_cuci_2;
 			tampil_laporan_semua(tempat); // generate laporan
+			tampil_laporan_semua_tempat_cuci_2(tempat);
 			tempat_cuci_2 = tempat_cuci_2->next;
 			free(tempat); // DI DEALOKASI
 			break;
@@ -969,6 +972,71 @@ void tampil_laporan_semua(antrian_cuci *tempat)
 	
 }
 // MODUL UNTUK EXPORT LAPORAN TRANSAKSI SEMUA DATA - END
+
+
+// MODUL UNTUK EXPORT LAPORAN TRANSAKSI DATA ANTRIAN TEMPAT CUCI 1
+void tampil_laporan_semua_tempat_cuci_1(antrian_cuci *tempat)
+{
+	char filename_csv[255], baris[255];
+	// antrian_cuci data_transaksi; // VARIABEL STRUCT
+	FILE *f_csv; // VARIABEL FILE
+
+	strcpy(filename_csv, "main_data/LAPORAN SEMUA TRANSAKSI TEMPAT CUCI 1.csv");
+
+	if (!(f_csv = fopen(filename_csv, "a")))
+	{
+		system("cls");
+		printf ("File %s tidak dapat diakses\n", filename_csv); 
+		printf("Silahkan tekan Enter untuk kembali ke halaman laporan transaksi...");
+		getch();
+
+		// REDIRECT KE main_antrian() UNTUK KEMBALI
+		main_antrian();
+	}
+
+	// PROSES MEMASUKAN DATA KE CSV FILE
+	int hitung_durasi_by_jenis; 
+	hitung_durasi_by_jenis =  tempat->waktu_out - tempat->waktu_proses;
+	sprintf(baris,"%s,%d,%d,%d,%d,%d,%d\n",tempat->nopol, tempat->golongan, hitung_durasi_by_jenis, tempat->harga, tempat->waktu_in, tempat->waktu_proses, tempat->waktu_out);
+	fputs(baris,f_csv);
+	
+	fclose(f_csv);
+	
+}
+// MODUL UNTUK EXPORT LAPORAN TRANSAKSI DATA ANTRIAN TEMPAT CUCI 1 - END
+
+
+// MODUL UNTUK EXPORT LAPORAN TRANSAKSI DATA ANTRIAN TEMPAT CUCI 2
+void tampil_laporan_semua_tempat_cuci_2(antrian_cuci *tempat)
+{
+	char filename_csv[255], baris[255];
+	// antrian_cuci data_transaksi; // VARIABEL STRUCT
+	FILE *f_csv; // VARIABEL FILE
+
+	strcpy(filename_csv, "main_data/LAPORAN SEMUA TRANSAKSI TEMPAT CUCI 2.csv");
+
+	if (!(f_csv = fopen(filename_csv, "a")))
+	{
+		system("cls");
+		printf ("File %s tidak dapat diakses\n", filename_csv); 
+		printf("Silahkan tekan Enter untuk kembali ke halaman laporan transaksi...");
+		getch();
+
+		// REDIRECT KE main_antrian() UNTUK KEMBALI
+		main_antrian();
+	}
+
+	// PROSES MEMASUKAN DATA KE CSV FILE
+	int hitung_durasi_by_jenis; 
+	hitung_durasi_by_jenis =  tempat->waktu_out - tempat->waktu_proses;
+	sprintf(baris,"%s,%d,%d,%d,%d,%d,%d\n",tempat->nopol, tempat->golongan, hitung_durasi_by_jenis, tempat->harga, tempat->waktu_in, tempat->waktu_proses, tempat->waktu_out);
+	fputs(baris,f_csv);
+	
+	fclose(f_csv);
+	
+}
+// MODUL UNTUK EXPORT LAPORAN TRANSAKSI DATA ANTRIAN TEMPAT CUCI 2 - END
+
 
 // MODUL UNTUK MENAMPILKAN RINGKASAN TOTAL TRANSAKSI
 void ringkasan_total()
