@@ -16,7 +16,6 @@
 
 #define BUFFER_SIZE 1000
 
-
 // DEKLARASI MODUL FUNCTION
 int exit_aplikasi_antrian();		// MODUL UNTUK KELUAR APLIKASI
 int salah_input_menu_antrian();		// MODUL UNTUK ERROR HANDLE APABILA SALAH INPUT PADA MENU
@@ -711,6 +710,7 @@ void dequeue(int pilih){
 	switch(pilih){
 		case 0:
 			hitung_total(tempat_cuci_1->golongan);
+			hitung_total_by_tempat_cuci(pilih, tempat_cuci_1->golongan);
 			tempat = tempat_cuci_1;
 			tampil_laporan_semua(tempat); // generate laporan
 			tampil_laporan_semua_tempat_cuci_1(tempat);
@@ -720,6 +720,7 @@ void dequeue(int pilih){
 
 		case 1:
 			hitung_total(tempat_cuci_2->golongan);
+			hitung_total_by_tempat_cuci(pilih, tempat_cuci_2->golongan);
 			tempat = tempat_cuci_2;
 			tampil_laporan_semua(tempat); // generate laporan
 			tampil_laporan_semua_tempat_cuci_2(tempat);
@@ -756,7 +757,29 @@ void hitung_total(int pilih){
 }
 // FUNCTION UNTUK MENGHITUNG TOTAL KENDARAAN YANG SUDAH DI CUCI DAN JUGA TOTAL DURASI PENCUCIANNYA - END
 
+// FUNCTION UNTUK MENGHITUNG TOTAL KENDARAAN YANG SUDAH DI CUCI DAN JUGA TOTAL DURASI PENCUCIANNYA BERDASARKAN TEMPAT CUCINYA
+void hitung_total_by_tempat_cuci(int pilih_cuci, int pilih_golongan){
+	switch(pilih_golongan){
+		case 1:
+			jumlah_kendaraan_by_tempat_cuci[pilih_cuci]++;
+			jumlah_waktu_by_tempat_cuci[pilih_cuci] += pilihan_durasi[0];
+			jumlah_harga_by_tempat_cuci[pilih_cuci] += pilihan_harga[0];
+			break;
 
+		case 2:
+			jumlah_kendaraan_by_tempat_cuci[pilih_cuci]++;
+			jumlah_waktu_by_tempat_cuci[pilih_cuci] += pilihan_durasi[1];
+			jumlah_harga_by_tempat_cuci[pilih_cuci] += pilihan_harga[1];
+			break;
+
+		case 3:
+			jumlah_kendaraan_by_tempat_cuci[pilih_cuci]++;
+			jumlah_waktu_by_tempat_cuci[pilih_cuci] += pilihan_durasi[2];
+			jumlah_harga_by_tempat_cuci[pilih_cuci] += pilihan_harga[2];
+			break;
+	}
+}
+// FUNCTION UNTUK MENGHITUNG TOTAL KENDARAAN YANG SUDAH DI CUCI DAN JUGA TOTAL DURASI PENCUCIANNYA BERDASARKAN TEMPAT CUCINYA - END
 
 // FUNCTION UNTUK PROSES PENGINPUTAN DATA KENDARAAN KE TEMPAT PENCUCIAN, DAN JUGA MEMILIH ANTARA TEMPAT CUCI 1 ATAU TEMPAT CUCI 2
 void pra_enqueue(char no_plat[], int golongan){
@@ -1042,6 +1065,8 @@ void tampil_laporan_semua_tempat_cuci_2(antrian_cuci *tempat)
 void ringkasan_total()
 {
 	tampil_laporan_akumulasi(jumlah_kendaraan, jumlah_waktu, jumlah_harga); // EXPORT LAPORAN
+	tampil_laporan_akumulasi_tempat_cuci_1(jumlah_kendaraan_by_tempat_cuci[0], jumlah_waktu_by_tempat_cuci[0], jumlah_harga_by_tempat_cuci[0]);
+	tampil_laporan_akumulasi_tempat_cuci_2(jumlah_kendaraan_by_tempat_cuci[1], jumlah_waktu_by_tempat_cuci[1], jumlah_harga_by_tempat_cuci[1]);
 
 	header_aplikasi(); // HEADER APLIKASI
 

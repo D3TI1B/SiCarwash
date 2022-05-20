@@ -133,12 +133,78 @@ void tampil_laporan_akumulasi( int jumlah_kendaraan, int jumlah_waktu, int jumla
 }
 // MODUL UNTUK EXPORT LAPORAN AKUMULASI - END
 
+// MODUL UNTUK EXPORT LAPORAN AKUMULASI TEMPAT CUCI 1
+void tampil_laporan_akumulasi_tempat_cuci_1( int jumlah_kendaraan_by_tempat_cuci_total, int jumlah_waktu_by_tempat_cuci_total, int jumlah_harga_by_tempat_cuci_total)
+{
+	char filename[255], brs[255];
+	FILE *file_csv; // VARIABEL FILE
+
+	strcpy(filename, "main_data/LAPORAN AKUMULASI TEMPAT CUCI 1.csv");
+
+	if (!(file_csv = fopen(filename, "w")))
+	{
+		system("cls");
+		printf ("File %s tidak dapat diakses\n", filename); 
+		printf("Silahkan tekan Enter untuk kembali ke halaman laporan transaksi...");
+		getch();
+
+		// REDIRECT KE main_antrian() UNTUK KEMBALI
+		// main_antrian();
+	}
+	else{
+		sprintf(brs,"TOTAL MOBIL,TOTAL WAKTU CUCI,TOTAL PEMASUKAN\n");
+		fputs(brs,file_csv);
+
+		sprintf(brs,"%d Mobil,%d Menit,Rp. %d\n", jumlah_kendaraan_by_tempat_cuci_total, jumlah_waktu_by_tempat_cuci_total, jumlah_harga_by_tempat_cuci_total);
+		fputs(brs,file_csv);
+	}
+
+	
+	fclose(file_csv);
+	
+}
+// MODUL UNTUK EXPORT LAPORAN AKUMULASI TEMPAT CUCI 1 - END
+
+// MODUL UNTUK EXPORT LAPORAN AKUMULASI TEMPAT CUCI 2
+void tampil_laporan_akumulasi_tempat_cuci_2( int jumlah_kendaraan_by_tempat_cuci_total, int jumlah_waktu_by_tempat_cuci_total, int jumlah_harga_by_tempat_cuci_total)
+{
+	char filename[255], brs[255];
+	FILE *file_csv; // VARIABEL FILE
+
+	strcpy(filename, "main_data/LAPORAN AKUMULASI TEMPAT CUCI 2.csv");
+
+	if (!(file_csv = fopen(filename, "w")))
+	{
+		system("cls");
+		printf ("File %s tidak dapat diakses\n", filename); 
+		printf("Silahkan tekan Enter untuk kembali ke halaman laporan transaksi...");
+		getch();
+
+		// REDIRECT KE main_antrian() UNTUK KEMBALI
+		// main_antrian();
+	}
+	else{
+		sprintf(brs,"TOTAL MOBIL,TOTAL WAKTU CUCI,TOTAL PEMASUKAN\n");
+		fputs(brs,file_csv);
+
+		sprintf(brs,"%d Mobil,%d Menit,Rp. %d\n", jumlah_kendaraan_by_tempat_cuci_total, jumlah_waktu_by_tempat_cuci_total, jumlah_harga_by_tempat_cuci_total);
+		fputs(brs,file_csv);
+	}
+
+	
+	fclose(file_csv);
+	
+}
+// MODUL UNTUK EXPORT LAPORAN AKUMULASI TEMPAT CUCI 2 - END
+
 // MODUL UNTUK HAPUS LAPORAN
 void hapus_laporan()
 {
 	remove("main_data/LAPORAN SEMUA TRANSAKSI.csv");
-	remove("main_data/LAPORAN AKUMULASI.csv");
 	remove("main_data/LAPORAN SEMUA TRANSAKSI TEMPAT CUCI 1.csv");
 	remove("main_data/LAPORAN SEMUA TRANSAKSI TEMPAT CUCI 2.csv");
+	remove("main_data/LAPORAN AKUMULASI.csv");
+	remove("main_data/LAPORAN AKUMULASI TEMPAT CUCI 1.csv");
+	remove("main_data/LAPORAN AKUMULASI TEMPAT CUCI 2.csv");
 }
 // MODUL UNTUK HAPUS LAPORAN - END

@@ -32,6 +32,9 @@ int antrean; // TEMPAT CUCI
 int jumlah_kendaraan; // JUMLAH TOTAL KENDARAAN YANG DI CUCI
 int jumlah_waktu; // JUMLAH TOTAL WAKTU MENCUCI
 int jumlah_harga; // JUMLAH TOTAL PEMASUKAN
+int jumlah_kendaraan_by_tempat_cuci[2]; // JUMLAH TOTAL KENDARAAN YANG DI CUCI BERDASARKAN TEMPAT CUCI
+int jumlah_waktu_by_tempat_cuci[2]; // JUMLAH TOTAL WAKTU MENCUCI BERDASARKAN TEMPAT CUCI
+int jumlah_harga_by_tempat_cuci[2]; // JUMLAH TOTAL PEMASUKAN BERDASARKAN TEMPAT CUCI
 // DEKLARASI VARIABEL GLOBAL - END
 
 
@@ -53,6 +56,7 @@ void simulasi_waktu();
 void cek_sisawaktu_cuci();
 void dequeue(int pilih);
 void hitung_total(int pilih);
+void hitung_total_by_tempat_cuci(int pilih_cuci, int pilih_golongan);
 void pra_enqueue(char no_plat[],int golongan);
 void hitung_durasi();
 int pilih_tempat_cuci();
